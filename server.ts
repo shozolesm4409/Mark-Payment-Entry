@@ -18,7 +18,7 @@ async function startServer() {
 
   // Proxy for Google Apps Script to bypass CORS
   app.post("/api/gas", async (req, res) => {
-    const scriptUrl = process.env.VITE_GAS_SCRIPT_URL;
+    const scriptUrl = process.env.VITE_GAS_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxWf6SHtri1peGaWUtz7Kuyh0brfeT4n6QCsgero9Ejnz1lnXIIgq8a3Y5fwyLG447TfA/exec";
     
     if (!scriptUrl) {
       return res.status(500).json({ 
