@@ -178,7 +178,11 @@ export default function App() {
       const contentType = response.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
         if (!silent) {
-          setError('সার্ভার থেকে ভুল তথ্য এসেছে। অনুগ্রহ করে কিছুক্ষণ পর চেষ্টা করুন।');
+          if (response.status === 404) {
+            setError('এপিআই এন্ডপয়েন্ট পাওয়া যায়নি (404)। ডেপ্লয়মেন্ট কনফিগারেশন চেক করুন।');
+          } else {
+            setError(`সার্ভার থেকে ভুল তথ্য এসেছে (HTTP ${response.status})।`);
+          }
         }
         return null;
       }
@@ -188,6 +192,13 @@ export default function App() {
       if (data.status === 'error') {
         if (!silent) {
           setError(data.message + (data.debug ? ` (${data.debug})` : ''));
+        }
+        return null;
+      }
+
+      if (data.status !== 'success') {
+        if (!silent) {
+          setError('সার্ভার থেকে অপ্রত্যাশিত তথ্য পাওয়া গেছে।');
         }
         return null;
       }
@@ -217,8 +228,6 @@ export default function App() {
         setSelectedBranch(data.branches[0]);
       }
       setView('branch-home');
-    } else {
-      setError(data?.message || 'ভুল পিন!');
     }
   };
 
@@ -230,8 +239,6 @@ export default function App() {
       setTeacherName(data.teacherName);
       fetchHistory();
       setView('dashboard');
-    } else {
-      setError(data?.message || 'সঠিক Tpin দিন');
     }
   };
 
@@ -266,8 +273,6 @@ export default function App() {
       resetForm();
       fetchHistory();
       setView('dashboard');
-    } else {
-      setError('ডাটা সেভ করা যায়নি।');
     }
   };
 
