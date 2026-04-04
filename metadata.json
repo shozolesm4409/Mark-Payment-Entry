@@ -1,0 +1,5 @@
+{
+  "name": "Marks Entry System",
+  "description": "A web application for branches to enter and track student marks, integrated with Google Sheets via Apps Script.",
+  "requestFramePermissions": []
+}
