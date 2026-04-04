@@ -70,10 +70,11 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                 <div className="text-center border-l border-slate-200">
                   <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Payment</p>
                   <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full border shadow-sm inline-block mt-1 ${
-                    record.paymentStatus === 'Paid' ? 'bg-emerald-100 border-emerald-500 text-emerald-700' : 
+                    record.paymentStatus === 'Paid' || record.paymentStatus === 'Updated' ? 'bg-emerald-100 border-emerald-500 text-emerald-700' : 
+                    record.paymentStatus === 'Wrong' ? 'bg-red-100 border-red-500 text-red-700' :
                     'bg-amber-100 border-amber-500 text-amber-700'
                   }`}>
-                    {record.paymentStatus || 'Unpaid'}
+                    {record.paymentStatus === 'Pending' ? 'Unpaid' : (record.paymentStatus || 'Unpaid')}
                   </span>
                 </div>
               </div>
