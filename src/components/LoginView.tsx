@@ -6,6 +6,7 @@ interface LoginViewProps {
   pin: string;
   setPin: (pin: string) => void;
   branchName: string;
+  coordinator: string;
   handleVerifyBranch: (e: React.FormEvent) => void;
   loading: boolean;
 }
@@ -14,6 +15,7 @@ export const LoginView: React.FC<LoginViewProps> = ({
   pin,
   setPin,
   branchName,
+  coordinator,
   handleVerifyBranch,
   loading
 }) => {
@@ -32,9 +34,16 @@ export const LoginView: React.FC<LoginViewProps> = ({
             <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
           </div>
           {branchName && (
-            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mt-3 p-3 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center gap-2">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-sm font-bold text-emerald-700">{branchName}</span>
+            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mt-3 p-3 bg-emerald-50 border border-emerald-100 rounded-xl flex flex-col gap-1">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                <span className="text-sm font-bold text-emerald-700">{branchName}</span>
+              </div>
+              {coordinator && (
+                <div className="text-xs font-medium text-emerald-600 ml-4">
+                  Coordinator: {coordinator}
+                </div>
+              )}
             </motion.div>
           )}
         </div>

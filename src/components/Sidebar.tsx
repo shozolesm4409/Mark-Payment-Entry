@@ -6,7 +6,8 @@ import {
   Plus, 
   History, 
   LogOut,
-  BarChart3
+  BarChart3,
+  User
 } from 'lucide-react';
 import { Branch, ViewMode } from '../types';
 
@@ -16,6 +17,7 @@ interface SidebarProps {
   view: ViewMode;
   selectedBranch: Branch | null;
   teacherName: string;
+  pin: string;
   isBranchHome: boolean;
   isTeacherVerify: boolean;
   setView: (view: ViewMode) => void;
@@ -63,6 +65,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   view,
   selectedBranch,
   teacherName,
+  pin,
   isBranchHome,
   isTeacherVerify,
   setView,
@@ -159,11 +162,30 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </nav>
 
       <div className="p-4 border-t border-slate-100">
-        {!isBranchHome && !isTeacherVerify && (
+        {(!isBranchHome && !isTeacherVerify) ? (
           <div className="bg-slate-50 p-4 rounded-xl mb-4">
-            <p className="text-xs font-bold text-slate-400 uppercase mb-1">Logged in as</p>
-            <p className="text-sm font-bold text-slate-800 truncate">{teacherName}</p>
-            <p className="text-[10px] text-slate-500 truncate">{selectedBranch?.name}</p>
+            <p className="text-xs font-bold text-slate-400 uppercase mb-1">LOGGED IN AS Coordinator</p>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center shrink-0">
+                <User size={16} />
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-bold text-slate-800 truncate">{selectedBranch?.coordinator} ({pin})</p>
+                <p className="text-[10px] text-slate-500 truncate">{selectedBranch?.name}</p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-slate-50 p-4 rounded-xl mb-4">
+            <p className="text-xs font-bold text-slate-400 uppercase mb-1">Coordinator Login</p>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center shrink-0">
+                <User size={16} />
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-bold text-slate-800 truncate">{selectedBranch?.coordinator || branches[0]?.coordinator} ({pin})</p>
+              </div>
+            </div>
           </div>
         )}
         <button 

@@ -27,6 +27,7 @@ export default function App() {
   // Auth State
   const [pin, setPin] = useState('');
   const [branchName, setBranchName] = useState('');
+  const [coordinator, setCoordinator] = useState('');
   const [branches, setBranches] = useState<Branch[]>([]);
   const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null);
   const [tpin, setTpin] = useState('');
@@ -153,11 +154,14 @@ export default function App() {
         const data = await callGAS('verifyBranch', { pin }, true);
         if (data?.status === 'success' && data.branches && data.branches.length > 0) {
           setBranchName(data.branches[0].name);
+          setCoordinator(data.branches[0].coordinator || '');
         } else {
           setBranchName('');
+          setCoordinator('');
         }
       } else {
         setBranchName('');
+        setCoordinator('');
       }
     };
     const timer = setTimeout(fetchBranchName, 500);
@@ -466,6 +470,7 @@ export default function App() {
         view={view}
         selectedBranch={selectedBranch}
         teacherName={teacherName}
+        pin={pin}
         isBranchHome={isBranchHome}
         isTeacherVerify={isTeacherVerify}
         setView={setView}
@@ -482,6 +487,7 @@ export default function App() {
         branches={branches}
         view={view}
         selectedBranch={selectedBranch}
+        pin={pin}
         isBranchHome={isBranchHome}
         isTeacherVerify={isTeacherVerify}
         setView={setView}
@@ -497,6 +503,7 @@ export default function App() {
           view={view}
           isUpdate={isUpdate}
           teacherName={teacherName}
+          tpin={tpin}
           selectedBranch={selectedBranch}
           setIsSidebarOpen={setIsSidebarOpen}
           wrongEntriesCount={wrongEntriesCount}
@@ -521,6 +528,7 @@ export default function App() {
                 pin={pin}
                 setPin={setPin}
                 branchName={branchName}
+                coordinator={coordinator}
                 handleVerifyBranch={handleVerifyBranch}
                 loading={loading}
               />

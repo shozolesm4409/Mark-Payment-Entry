@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, X, Building2, LayoutDashboard, Plus, History, LogOut, BarChart3 } from 'lucide-react';
+import { BookOpen, X, Building2, LayoutDashboard, Plus, History, LogOut, BarChart3, User } from 'lucide-react';
 import { Branch, ViewMode } from '../types';
 
 interface MobileSidebarProps {
@@ -9,6 +9,7 @@ interface MobileSidebarProps {
   branches: Branch[];
   view: ViewMode;
   selectedBranch: Branch | null;
+  pin: string;
   isBranchHome: boolean;
   isTeacherVerify: boolean;
   setView: (view: ViewMode) => void;
@@ -56,6 +57,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   branches,
   view,
   selectedBranch,
+  pin,
   isBranchHome,
   isTeacherVerify,
   setView,
@@ -166,6 +168,32 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
               )}
             </nav>
             <div className="p-4 border-t border-slate-100">
+              {(!isBranchHome && !isTeacherVerify) ? (
+                <div className="bg-slate-50 p-4 rounded-xl mb-4">
+                  <p className="text-xs font-bold text-slate-400 uppercase mb-1">LOGGED IN AS Coordinator</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center shrink-0">
+                      <User size={16} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-slate-800 truncate">{selectedBranch?.coordinator} ({pin})</p>
+                      <p className="text-[10px] text-slate-500 truncate">{selectedBranch?.name}</p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-slate-50 p-4 rounded-xl mb-4">
+                  <p className="text-xs font-bold text-slate-400 uppercase mb-1">Coordinator Login</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center shrink-0">
+                      <User size={16} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-slate-800 truncate">{selectedBranch?.coordinator || branches[0]?.coordinator} ({pin})</p>
+                    </div>
+                  </div>
+                </div>
+              )}
               <button 
                 onClick={isBranchHome ? handleBranchLogout : handleTeacherLogout}
                 className="w-full flex items-center gap-3 p-2 rounded-xl text-red-600 hover:bg-red-50 transition-all font-medium cursor-pointer"

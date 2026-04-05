@@ -6,6 +6,7 @@ interface HeaderProps {
   view: ViewMode;
   isUpdate: boolean;
   teacherName: string;
+  tpin: string;
   selectedBranch: Branch | null;
   setIsSidebarOpen: (open: boolean) => void;
   wrongEntriesCount: number;
@@ -16,6 +17,7 @@ export const Header: React.FC<HeaderProps> = ({
   view,
   isUpdate,
   teacherName,
+  tpin,
   selectedBranch,
   setIsSidebarOpen,
   wrongEntriesCount,
@@ -71,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
           <div className="hidden sm:flex flex-col items-end">
-            <span className="text-sm font-bold text-slate-800">{teacherName}</span>
+            <span className="text-sm font-bold text-slate-800">{teacherName ? `${teacherName} (${tpin})` : ''}</span>
             <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider">{selectedBranch?.name}</span>
           </div>
           <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-600 border border-slate-200">
