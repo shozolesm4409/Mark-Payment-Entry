@@ -17,7 +17,7 @@ export const BranchHomeView: React.FC<BranchHomeViewProps> = ({
   setIsSidebarOpen
 }) => {
   return (
-    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center w-full max-w-lg">
+    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center w-full max-w-lg mx-auto">
       <div className="lg:hidden absolute top-4 left-4">
         <button 
           onClick={() => setIsSidebarOpen(true)}
