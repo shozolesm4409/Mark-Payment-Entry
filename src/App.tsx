@@ -103,7 +103,7 @@ export default function App() {
   // Auto-fill Teacher Name
   useEffect(() => {
     const fetchTeacher = async () => {
-      if (tpin.length >= 4 && selectedBranch) {
+      if (tpin.length >= 2 && selectedBranch) {
         setIsVerifyingTeacher(true);
         const data = await callGAS('verifyTeacher', { tpin, branchId: selectedBranch.id }, true);
         if (data?.status === 'success') {
@@ -277,8 +277,8 @@ export default function App() {
   };
 
   const fetchHistory = async () => {
-    if (!selectedBranch) return;
-    const data = await callGAS('getHistory', { branchId: selectedBranch.id });
+    if (!selectedBranch || !teacherName) return;
+    const data = await callGAS('getHistory', { branchId: selectedBranch.id, teacherName });
     if (data?.status === 'success') {
       setHistory(data.records);
     }

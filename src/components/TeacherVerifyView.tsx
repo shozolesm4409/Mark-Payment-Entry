@@ -43,11 +43,15 @@ export const TeacherVerifyView: React.FC<TeacherVerifyViewProps> = ({
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-2">&nbsp;</label>
             <div className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-600 font-medium min-h-[50px] flex items-center">
-              {isVerifyingTeacher ? <Loader2 className="animate-spin text-indigo-600" size={20} /> : (teacherName || 'শিক্ষক নাম')}
+              {isVerifyingTeacher ? (
+                <Loader2 className="animate-spin text-indigo-600" size={20} />
+              ) : (
+                teacherName || (tpin.length >= 2 ? 'শিক্ষক পাওয়া যায়নি' : 'শিক্ষক নাম')
+              )}
             </div>
           </div>
         </div>
-        <button type="submit" disabled={loading || isVerifyingTeacher || !teacherName} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer">
+        <button type="submit" disabled={loading || isVerifyingTeacher || tpin.length < 2} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer">
           {(loading || isVerifyingTeacher) ? <Loader2 className="animate-spin" /> : 'প্রবেশ করুন'}
         </button>
         <button type="button" onClick={() => setView('branch-home')} className="w-full text-slate-500 font-medium py-2 hover:text-slate-800 transition-colors cursor-pointer">পিছনে যান</button>
