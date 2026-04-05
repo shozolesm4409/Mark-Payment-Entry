@@ -62,7 +62,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                     <span className="flex items-center gap-1"><Calendar size={14} /> {record.entryDate}</span>
                   </div>
                 </div>
-                <button onClick={() => handleEdit(record)} className="text-indigo-600 font-semibold text-sm hover:bg-indigo-50 px-3 py-1.5 rounded-lg transition-colors cursor-pointer">এডিট</button>
+                <button onClick={() => handleEdit(record)} className="text-indigo-600 font-semibold text-sm hover:bg-indigo-50 p-2 rounded-lg transition-colors cursor-pointer">এডিট</button>
               </div>
               <div className="grid grid-cols-3 gap-2 mb-4 p-3 bg-slate-50 rounded-xl">
                 <div className="text-center"><p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">BV</p><p className="text-base font-bold text-slate-700">{record.bvCount}</p></div>

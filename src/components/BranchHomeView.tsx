@@ -43,7 +43,7 @@ export const BranchHomeView: React.FC<BranchHomeViewProps> = ({
         {selectedBranch && (
           <button 
             onClick={() => setView('teacher-verify')}
-            className="w-full bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full bg-indigo-600 text-white p-2 rounded-xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
           >
             <User size={20} />
             শিক্ষক ভেরিফিকেশন
@@ -52,7 +52,7 @@ export const BranchHomeView: React.FC<BranchHomeViewProps> = ({
         
         <button 
           onClick={handleBranchLogout}
-          className="w-full bg-white text-red-600 border border-red-100 px-8 py-4 rounded-xl font-bold hover:bg-red-50 transition-all flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full bg-white text-red-600 border border-red-100 p-2 rounded-xl font-bold hover:bg-red-50 transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           <LogOut size={20} />
           লগআউট

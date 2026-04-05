@@ -27,4 +27,4 @@ export interface HistoryRecord {
   allMarks: { reg: string; marks: string; status: string }[];
 }
 
-export type ViewMode = 'login' | 'branch-home' | 'teacher-verify' | 'dashboard' | 'entry' | 'history' | 'report';
+export type ViewMode = 'login' | 'branch-home' | 'teacher-verify' | 'dashboard' | 'entry' | 'history' | 'report' | 'branch-report' | 'notifications';

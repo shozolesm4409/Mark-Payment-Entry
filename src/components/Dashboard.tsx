@@ -108,11 +108,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <div className="space-y-4">
           <h3 className="font-bold text-lg text-slate-800">কুইক অ্যাকশন</h3>
           <div className="space-y-3">
-            <button onClick={() => { resetForm(); setView('entry'); }} className="w-full bg-white p-4 rounded-xl border border-slate-200 flex items-center gap-4 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all group cursor-pointer">
+            <button onClick={() => { resetForm(); setView('entry'); }} className="w-full bg-white p-2 rounded-xl border border-slate-200 flex items-center gap-4 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all group cursor-pointer">
               <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center group-hover:bg-white/20 group-hover:text-white"><Plus size={20} /></div>
               <span className="font-bold">নতুন মার্কস এন্ট্রি</span>
             </button>
-            <button onClick={() => setView('history')} className="w-full bg-white p-4 rounded-xl border border-slate-200 flex items-center gap-4 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all group cursor-pointer">
+            <button onClick={() => setView('history')} className="w-full bg-white p-2 rounded-xl border border-slate-200 flex items-center gap-4 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all group cursor-pointer">
               <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center group-hover:bg-white/20 group-hover:text-white"><History size={20} /></div>
               <span className="font-bold">রেকর্ড চেক করুন</span>
             </button>

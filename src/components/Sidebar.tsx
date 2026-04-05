@@ -44,7 +44,7 @@ const NavItem = ({
     <button
     onClick={onClick}
     disabled={disabled}
-    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium cursor-pointer ${
+    className={`w-full flex items-center gap-3 p-2 rounded-xl transition-all font-medium cursor-pointer ${
       active 
         ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' 
         : disabled 
@@ -93,11 +93,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       <nav className="flex-1 p-4 space-y-2">
-        {isBranchHome || isTeacherVerify ? (
+        {['branch-home', 'teacher-verify', 'branch-report', 'report'].includes(view) ? (
           <>
             <NavItem 
               icon={BarChart3} 
-              label="রিপোর্ট" 
+              label="ব্রাঞ্চ রিপোর্ট" 
+              targetView="branch-report" 
+              active={view === 'branch-report'} 
+              onClick={() => handleNavClick('branch-report')}
+            />
+            <NavItem 
+              icon={BarChart3} 
+              label="রং এন্ট্রি রিপোর্ট" 
               targetView="report" 
               active={view === 'report'} 
               onClick={() => handleNavClick('report')}
@@ -112,7 +119,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     setView('teacher-verify');
                     setIsSidebarOpen(false);
                   }}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium cursor-pointer ${
+                  className={`w-full flex items-center gap-3 p-2 rounded-xl transition-all font-medium cursor-pointer ${
                     selectedBranch?.id === b.id && isTeacherVerify
                       ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' 
                       : 'text-slate-600 hover:bg-slate-100'
@@ -161,7 +168,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         )}
         <button 
           onClick={isBranchHome ? handleBranchLogout : handleTeacherLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 transition-all font-medium cursor-pointer"
+          className="w-full flex items-center gap-3 p-2 rounded-xl text-red-600 hover:bg-red-50 transition-all font-medium cursor-pointer"
         >
           <LogOut size={20} />
           <span>লগআউট</span>

@@ -20,6 +20,7 @@ interface EntryFormProps {
   handleSaveData: (e: React.FormEvent) => void;
   setView: (view: ViewMode) => void;
   loading: boolean;
+  isFormValid: boolean;
 }
 
 export const EntryForm: React.FC<EntryFormProps> = ({
@@ -38,7 +39,8 @@ export const EntryForm: React.FC<EntryFormProps> = ({
   isUpdate,
   handleSaveData,
   setView,
-  loading
+  loading,
+  isFormValid
 }) => {
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 max-w-3xl mx-auto">
@@ -62,17 +64,41 @@ export const EntryForm: React.FC<EntryFormProps> = ({
               <input type="date" value={entryDate} onChange={(e) => setEntryDate(e.target.value)} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" required />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div><label className="block text-sm font-semibold text-slate-700 mb-1">BV Count</label><input type="number" value={bvCount} onChange={(e) => setBvCount(e.target.value)} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" required /></div>
-            <div><label className="block text-sm font-semibold text-slate-700 mb-1">EV Count</label><input type="number" value={evCount} onChange={(e) => setEvCount(e.target.value)} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" required /></div>
-          </div>
+          {subject && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {(subject === 'বাংলা' || ['গণিত', 'বিজ্ঞান', 'বাংলাদেশ ও বিশ্ব-পরিচিতি'].includes(subject)) && (
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1">BV Count</label>
+                  <input 
+                    type="number" 
+                    value={bvCount} 
+                    onChange={(e) => setBvCount(e.target.value)} 
+                    className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" 
+                    required 
+                  />
+                </div>
+              )}
+              {(subject === 'ইংরেজি' || ['গণিত', 'বিজ্ঞান', 'বাংলাদেশ ও বিশ্ব-পরিচিতি'].includes(subject)) && (
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1">EV Count</label>
+                  <input 
+                    type="number" 
+                    value={evCount} 
+                    onChange={(e) => setEvCount(e.target.value)} 
+                    className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" 
+                    required 
+                  />
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-bold text-slate-800">শিক্ষার্থীদের মার্কস</h3>
             {!isUpdate && (
-              <button type="button" onClick={addMarkRow} className="flex items-center gap-1 text-sm bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-lg hover:bg-indigo-100 transition-colors cursor-pointer">
+              <button type="button" onClick={addMarkRow} className="flex items-center gap-1 text-sm bg-indigo-50 text-indigo-600 p-2 rounded-lg hover:bg-indigo-100 transition-colors cursor-pointer">
                 <Plus size={16} />নতুন রো
               </button>
             )}
@@ -127,8 +153,8 @@ export const EntryForm: React.FC<EntryFormProps> = ({
         </div>
 
         <div className="flex gap-4">
-          <button type="button" onClick={() => setView('dashboard')} className="flex-1 bg-white border border-slate-200 text-slate-600 font-bold py-4 rounded-xl hover:bg-slate-50 transition-all cursor-pointer">বাতিল করুন</button>
-          <button type="submit" disabled={loading} className="flex-[2] bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer">
+          <button type="button" onClick={() => setView('dashboard')} className="flex-1 bg-white border border-slate-200 text-slate-600 font-bold p-2 rounded-xl hover:bg-slate-50 transition-all cursor-pointer">বাতিল করুন</button>
+          <button type="submit" disabled={loading || !isFormValid} className="flex-[2] bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-2 rounded-xl shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer">
             {loading ? <Loader2 className="animate-spin" /> : <><Save size={20} />{isUpdate ? 'আপডেট করুন' : 'সেভ করুন'}</>}
           </button>
         </div>

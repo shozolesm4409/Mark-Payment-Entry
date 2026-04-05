@@ -51,10 +51,10 @@ export const TeacherVerifyView: React.FC<TeacherVerifyViewProps> = ({
             </div>
           </div>
         </div>
-        <button type="submit" disabled={loading || isVerifyingTeacher || tpin.length < 2} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer">
+        <button type="submit" disabled={loading || isVerifyingTeacher || tpin.length < 2} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-2 rounded-xl shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer">
           {(loading || isVerifyingTeacher) ? <Loader2 className="animate-spin" /> : 'প্রবেশ করুন'}
         </button>
-        <button type="button" onClick={() => setView('branch-home')} className="w-full text-slate-500 font-medium py-2 hover:text-slate-800 transition-colors cursor-pointer">পিছনে যান</button>
+        <button type="button" onClick={() => setView('branch-home')} className="w-full text-slate-500 font-medium p-2 hover:text-slate-800 transition-colors cursor-pointer">পিছনে যান</button>
       </form>
     </motion.div>
   );

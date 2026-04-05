@@ -38,7 +38,7 @@ export const LoginView: React.FC<LoginViewProps> = ({
             </motion.div>
           )}
         </div>
-        <button type="submit" disabled={loading} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer">
+        <button type="submit" disabled={loading} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-2 rounded-xl shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer">
           {loading ? <Loader2 className="animate-spin" /> : 'ভেরিফাই করুন'}
         </button>
       </form>
