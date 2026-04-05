@@ -50,7 +50,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">বিষয়</label>
-              <select value={subject} onChange={(e) => setSubject(e.target.value)} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none appearance-none" required>
+              <select value={subject} onChange={(e) => setSubject(e.target.value)} disabled={isUpdate} className={`w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none appearance-none ${isUpdate ? 'opacity-70 cursor-not-allowed' : ''}`} required>
                 <option value="">সিলেক্ট করুন</option>
                 <option value="বাংলা">বাংলা</option>
                 <option value="ইংরেজি">ইংরেজি</option>
@@ -61,7 +61,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">তারিখ</label>
-              <input type="date" value={entryDate} onChange={(e) => setEntryDate(e.target.value)} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" required />
+              <input type="date" value={entryDate} onChange={(e) => setEntryDate(e.target.value)} disabled={isUpdate} className={`w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none ${isUpdate ? 'opacity-70 cursor-not-allowed' : ''}`} required />
             </div>
           </div>
           {subject && (
@@ -73,7 +73,8 @@ export const EntryForm: React.FC<EntryFormProps> = ({
                     type="number" 
                     value={bvCount} 
                     onChange={(e) => setBvCount(e.target.value)} 
-                    className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" 
+                    disabled={isUpdate}
+                    className={`w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none ${isUpdate ? 'opacity-70 cursor-not-allowed' : ''}`} 
                     required 
                   />
                 </div>
@@ -85,7 +86,8 @@ export const EntryForm: React.FC<EntryFormProps> = ({
                     type="number" 
                     value={evCount} 
                     onChange={(e) => setEvCount(e.target.value)} 
-                    className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" 
+                    disabled={isUpdate}
+                    className={`w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none ${isUpdate ? 'opacity-70 cursor-not-allowed' : ''}`} 
                     required 
                   />
                 </div>
@@ -105,29 +107,32 @@ export const EntryForm: React.FC<EntryFormProps> = ({
           </div>
           <div className="max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
             <div className="space-y-3">
-              {marks.map((mark, index) => (
-                <div key={index} className="flex gap-3 items-end">
+              {marks
+                .map((mark, originalIndex) => ({ mark, originalIndex }))
+                .filter(({ mark }) => !isUpdate || mark.status === 'Wrong')
+                .map(({ mark, originalIndex }, displayIndex) => (
+                <div key={originalIndex} className="flex gap-3 items-end">
                   <div className="w-10 pb-2 text-center text-slate-400 font-bold text-sm">
-                    {index === 0 && <label className="block text-[10px] uppercase tracking-wider mb-2">SL</label>}
-                    {index + 1}
+                    {displayIndex === 0 && <label className="block text-[10px] uppercase tracking-wider mb-2">SL</label>}
+                    {originalIndex + 1}
                   </div>
                   <div className="flex-1">
-                    {index === 0 && <label className="block text-xs font-semibold text-slate-500 mb-1">রোল</label>}
+                    {displayIndex === 0 && <label className="block text-xs font-semibold text-slate-500 mb-1">রোল</label>}
                     <input 
                       type="text" 
                       value={mark.roll} 
-                      onChange={(e) => updateMark(index, 'roll', e.target.value)} 
+                      onChange={(e) => updateMark(originalIndex, 'roll', e.target.value)} 
                       className={`w-full px-3 py-2 bg-slate-50 border ${mark.status === 'Wrong' ? 'border-red-500 ring-1 ring-red-500' : 'border-slate-200'} rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none`} 
                       placeholder="রোল" 
                       required 
                     />
                   </div>
                   <div className="flex-1">
-                    {index === 0 && <label className="block text-xs font-semibold text-slate-500 mb-1">মার্কস</label>}
+                    {displayIndex === 0 && <label className="block text-xs font-semibold text-slate-500 mb-1">মার্কস</label>}
                     <input 
                       type="number" 
                       value={mark.marks} 
-                      onChange={(e) => updateMark(index, 'marks', e.target.value)} 
+                      onChange={(e) => updateMark(originalIndex, 'marks', e.target.value)} 
                       className={`w-full px-3 py-2 bg-slate-50 border ${mark.status === 'Wrong' ? 'border-red-500 ring-1 ring-red-500' : 'border-slate-200'} rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none`} 
                       placeholder="মার্কস" 
                       required 
@@ -135,7 +140,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
                   </div>
                   {isUpdate && (
                     <div className="w-24">
-                      {index === 0 && <label className="block text-xs font-semibold text-slate-500 mb-1">স্ট্যাটাস</label>}
+                      {displayIndex === 0 && <label className="block text-xs font-semibold text-slate-500 mb-1">স্ট্যাটাস</label>}
                       <div className={`px-3 py-2 rounded-lg text-center text-[10px] font-black uppercase border-2 shadow-sm ${
                         mark.status === 'Updated' ? 'bg-emerald-100 border-emerald-500 text-emerald-700' :
                         mark.status === 'Wrong' ? 'bg-red-100 border-red-500 text-red-700' :
@@ -145,7 +150,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
                       </div>
                     </div>
                   )}
-                  {marks.length > 1 && !isUpdate && <button type="button" onClick={() => removeMarkRow(index)} className="p-2 text-slate-400 hover:text-red-500 transition-colors cursor-pointer"><Trash2 size={20} /></button>}
+                  {marks.length > 1 && !isUpdate && <button type="button" onClick={() => removeMarkRow(originalIndex)} className="p-2 text-slate-400 hover:text-red-500 transition-colors cursor-pointer"><Trash2 size={20} /></button>}
                 </div>
               ))}
             </div>
