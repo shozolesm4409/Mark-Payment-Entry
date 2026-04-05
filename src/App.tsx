@@ -453,7 +453,7 @@ export default function App() {
     setIsSidebarOpen(false);
   };
 
-  const isAuthView = view === 'login' || view === 'teacher-verify';
+  const isAuthView = view === 'login' || view === 'teacher-verify' || view === 'branch-home';
   const showSidebar = branches.length > 0 && view !== 'login';
   const isBranchHome = ['branch-home', 'branch-report', 'report'].includes(view);
   const isTeacherVerify = view === 'teacher-verify';
